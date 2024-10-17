@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
     <artifactId>simple-java-sonarqube</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -13,11 +13,9 @@
     <sonar.projectName>simple-java-sonarqube-cobertura</sonar.projectName>
     <sonar.projectVersion>1.0</sonar.projectVersion>
     <sonar.host.url>http://localhost:9000</sonar.host.url>
-    <sonar.login>359555daa94fbe235998c97fb27ae98adebc0a8c</sonar.login>
-    
-    <!-- Use Cobertura for coverage reporting -->
-    <sonar.java.coveragePlugin>cobertura</sonar.java.coveragePlugin>
-    <sonar.coverage.cobertura.xmlReportPaths>target/site/cobertura/coverage.xml</sonar.coverage.cobertura.xmlReportPaths>
+    <sonar.login>admin</sonar.login>
+    <sonar.password>Dreamcity@123</sonar.password>
+
 
     <!-- Specify the location of compiled classes -->
     <sonar.java.binaries>target/classes</sonar.java.binaries>
