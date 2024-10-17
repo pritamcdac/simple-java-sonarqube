@@ -39,12 +39,6 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
-            <!-- Cobertura plugin for generating code coverage report -->
-            <plugin>
-            <groupId>net.sourceforge.cobertura</groupId>
-            <artifactId>cobertura-maven-plugin</artifactId>
-            <version>2.2</version>
             <configuration>
                 <formats>
                     <format>xml</format>
