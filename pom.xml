@@ -21,7 +21,13 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
+   <build>
+    <plugins>
+        <!-- Some plugin configuration (ensure it's correctly nested) -->
+        <plugin>
+            <groupId>your.plugin.groupid</groupId>
+            <artifactId>your-plugin-artifactid</artifactId>
+            <version>your-plugin-version</version>
             <configuration>
                 <formats>
                     <format>xml</format>
@@ -37,12 +43,14 @@
                 </execution>
             </executions>
         </plugin>
-            <!-- SonarQube Scanner plugin for integrating with SonarQube -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-            </plugin>
-        </plugins>
-    </build>
+
+        <!-- SonarQube Scanner plugin for integrating with SonarQube -->
+        <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.9.1.2184</version>
+        </plugin>
+    </plugins>
+</build>
+
 </project>
