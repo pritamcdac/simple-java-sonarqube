@@ -1,4 +1,4 @@
-name: POC 1 - Variables in Workflowp
+name: POC 2 - Variables in Workflowp
 on:
   push:
     branches:
