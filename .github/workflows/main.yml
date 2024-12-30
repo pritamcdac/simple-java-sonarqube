@@ -7,10 +7,6 @@ jobs:
   example-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a simple script
-        run: |
-          echo "This is a script"
-          date
       - name: Run external script
         run: ./scripts/example.sh
         shell: bash
