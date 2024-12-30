@@ -1,0 +1,13 @@
+name: POC 1 - Variables in Workflow
+on:
+  push:
+    branches:
+      - master
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    env:
+      MY_VARIABLE: "Hello, World"
+    steps:
+      - name: Print variable
+        run: echo $MY_VARIABLE
