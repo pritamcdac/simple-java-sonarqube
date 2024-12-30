@@ -5,7 +5,7 @@
     <groupId>com.example</groupId>
     <artifactId>simple-java-sonarqube</artifactId>
     <version>1.2-SNAPSHOT</version>
- 
+
     <dependencies>
         <!-- JUnit 5 (Jupiter) dependency for unit testing -->
         <dependency>
@@ -21,36 +21,36 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-   <build>
-    <plugins>
-        <!-- Some plugin configuration (ensure it's correctly nested) -->
-        <plugin>
-            <groupId>your.plugin.groupid</groupId>
-            <artifactId>your-plugin-artifactid</artifactId>
-            <version>your-plugin-version</version>
-            <configuration>
-                <formats>
-                    <format>xml</format>
-                    <format>html</format>
-                </formats>
-            </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>instrument</goal>
-                        <goal>coverage</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
 
-        <!-- SonarQube Scanner plugin for integrating with SonarQube -->
-        <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.9.1.2184</version>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <plugins>
+            <!-- JaCoCo plugin for code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
+            <!-- SonarQube Scanner plugin for integrating with SonarQube -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
