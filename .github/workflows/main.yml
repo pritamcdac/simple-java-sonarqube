@@ -8,5 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run external script
-        run: ./scripts/example.sh
-        shell: bash
+        run: |
+          chmod +x scripts/example.sh
+           ./scripts/example.sh
+        
