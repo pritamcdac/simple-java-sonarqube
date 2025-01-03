@@ -1,25 +1,13 @@
-name: POC 3 - Share Data Between Jobs
+# .github/workflows/use-manual-other-repo.yml
+name: Use Reusable Manual Workflow in Another Repo
+
 on:
   push:
-jobs:
-  create-artifact:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create file
-        run: echo "Shared Data" > shared-file.txt
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: shared-artifact
-          path: shared-file.txt
+    branches:
+      - master  # Trigger when pushing to the main branch
 
-  use-artifact:
-    runs-on: ubuntu-latest
-    needs: create-artifact
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: shared-artifact
-      - name: Print file content
-        run: cat shared-file.txt
+jobs:
+  call-reusable-workflow:
+    uses: pritamcdac/Calculator-githubact/.github/workflows/main.yml@main  # Replace with your repo and branch
+    with:
+      java_version: "11"  # Input value passed to the reusable workflow
