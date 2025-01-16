@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Example
+name: CI Pipeline Example
 
 on:
   push:
@@ -20,7 +20,15 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'       # Specify Java version
-          distribution: 'temurin'  # Specify Java distribution (e.g., temurin, zulu, adopt)
+          distribution: 'temurin'  # Specify Java distribution
 
       - name: Build with Maven
         run: mvn clean install
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build  # Depends on the successful completion of the build job
+
+    steps:
+      - name: Run tests
+        run: mvn test
