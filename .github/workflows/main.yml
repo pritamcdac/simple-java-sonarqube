@@ -1,13 +1,35 @@
-# .github/workflows/use-manual-other-repo.yml
-name: Use Reusable Manual Workflow in Another Repo
+name: CI Workflow
 
 on:
   push:
     branches:
-      - master  # Trigger when pushing to the main branch
+      - main
 
 jobs:
-  call-reusable-workflow:
-    uses: pritamcdac/Calculator-githubact/.github/workflows/main.yml@main  # Replace with your repo and branch
-    with:
-      java_version: "11"  # Input value passed to the reusable workflow
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      # Step 3: Cache Maven dependencies
+      - name: Cache Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
+
+      # Step 4: Build with Maven
+      - name: Build with Maven
+        run: mvn clean install
