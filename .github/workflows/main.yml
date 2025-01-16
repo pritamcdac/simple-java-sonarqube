@@ -30,5 +30,14 @@ jobs:
     needs: build  # Depends on the successful completion of the build job
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
       - name: Run tests
         run: mvn test
