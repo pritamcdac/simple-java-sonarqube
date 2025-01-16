@@ -1,43 +1,98 @@
-name: CI Pipeline Example
+# name: CI Pipeline Example
+
+# on:
+#   push:
+#     branches:
+#       - master
+#   pull_request:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Java
+#         uses: actions/setup-java@v3
+#         with:
+#           java-version: '11'       # Specify Java version
+#           distribution: 'temurin'  # Specify Java distribution
+
+#       - name: Build with Maven
+#         run: mvn clean install
+
+#   test:
+#     runs-on: ubuntu-latest
+#     needs: build  # Depends on the successful completion of the build job
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Java
+#         uses: actions/setup-java@v3
+#         with:
+#           java-version: '11'
+#           distribution: 'temurin'
+
+#       - name: Run tests
+#         run: mvn test
+
+
+name: Webhook Event Workflow
 
 on:
+  check_run:
+    types: [created, rerequested, completed]
+  check_suite:
+    types: [completed, requested]
+  deployment:
+    types: [created, success, failure]
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - main
 
 jobs:
-  build:
+  process-check-run:
+    if: ${{ github.event_name == 'check_run' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'       # Specify Java version
-          distribution: 'temurin'  # Specify Java distribution
+      - name: Log Check Run Details
+        run: |
+          echo "Event: ${{ github.event_name }}"
+          echo "Check Run ID: ${{ github.event.check_run.id }}"
+          echo "Check Run Status: ${{ github.event.check_run.status }}"
+          echo "Check Run Conclusion: ${{ github.event.check_run.conclusion }}"
+        if: ${{ github.event.action == 'completed' }}
 
-      - name: Build with Maven
-        run: mvn clean install
-
-  test:
+  process-deployment:
+    if: ${{ github.event_name == 'deployment' }}
     runs-on: ubuntu-latest
-    needs: build  # Depends on the successful completion of the build job
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
+      - name: Deployment Trigger Details
+        run: |
+          echo "Deployment ID: ${{ github.event.deployment.id }}"
+          echo "Deployment Status: ${{ github.event.action }}"
+          echo "Deployed Environment: ${{ github.event.deployment.environment }}"
 
-      - name: Run tests
-        run: mvn test
+  deployment-status-handler:
+    if: ${{ github.event_name == 'deployment_status' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Handle Deployment Status
+        run: |
+          echo "Deployment ID: ${{ github.event.deployment_status.deployment.id }}"
+          echo "Deployment State: ${{ github.event.deployment_status.state }}
