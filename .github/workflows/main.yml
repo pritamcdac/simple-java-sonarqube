@@ -54,7 +54,7 @@ on:
     types: [created, success, failure]
   push:
     branches:
-      - main
+      - master
 
 jobs:
   process-check-run:
